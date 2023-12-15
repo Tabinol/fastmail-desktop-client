@@ -1,0 +1,26 @@
+{
+  "name": "fastmail-desktop-app",
+  "version": "1.0.0",
+  "description": "Unofficial desktop client for Fastmail",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "me.tabinol.fastmail-desktop-app",
+    "icon": "icon.png",
+    "linux": {
+      "category": "Email;Network"
+    }
+  },
+  "repository": "https://github.com/Tabinol/fastmail-desktop-client.git",
+  "author": "Tabinol",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  }
+}
