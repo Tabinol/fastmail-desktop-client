@@ -13,7 +13,7 @@
     "appId": "me.tabinol.fastmail-desktop-app",
     "icon": "icon.png",
     "linux": {
-      "category": "Email;Network"
+      "category": "Calendar;Compose;Contacts;Mail"
     }
   },
   "repository": "https://github.com/Tabinol/fastmail-desktop-client.git",

@@ -1,5 +1,7 @@
 const { app, BrowserWindow } = require('electron/main')
-const { Menu, MenuItem } = require('electron')
+const { Menu, MenuItem, shell } = require('electron')
+
+app.commandLine.appendSwitch('ozone-platform-hint=auto')
 
 const appUrl = "https://app.fastmail.com/"
 
@@ -12,7 +14,16 @@ const createWindow = () => {
         }
     })
 
-    win.loadURL(appUrl)
+    // Click to external browser
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        console.log(`url=${url}`)
+        if (url.includes("fastmail.com")) {
+            return { action: 'allow' };
+        }
+
+        shell.openExternal(url);
+        return { action: 'deny' };
+    });
 
     win.webContents.on('context-menu', (event, params) => {
         const menu = new Menu()
@@ -37,6 +48,8 @@ const createWindow = () => {
 
         menu.popup()
     })
+
+    win.loadURL(appUrl)
 }
 
 app.whenReady().then(() => {
