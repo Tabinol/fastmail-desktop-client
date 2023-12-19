@@ -131,4 +131,6 @@ dist
 
 # flatpak
 /flatpak/build/
+/flatpak/repo/
 .flatpak-builder
+/target/
