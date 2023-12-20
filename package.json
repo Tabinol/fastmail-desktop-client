@@ -7,13 +7,17 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "release": "electron-builder"
   },
   "build": {
     "appId": "me.tabinol.fastmail-desktop-client",
+    "productName": "Fastmail Desktop Client",
     "icon": "icon.png",
+    "publish": ["github"],
     "linux": {
-      "category": "Calendar;Compose;Contacts;Mail"
+      "target": "AppImage",
+      "category": "X-Calendar;X-Compose;X-Contacts;X-Mail;Network"
     }
   },
   "repository": "https://github.com/Tabinol/fastmail-desktop-client.git",

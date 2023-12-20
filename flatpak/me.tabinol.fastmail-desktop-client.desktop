@@ -1,9 +1,0 @@
-[Desktop Entry]
-Categories=X-Calendar;X-Compose;X-Contacts;X-Mail;Network
-Exec=me.tabinol.fastmail-desktop-client
-GenericName=Fastmail Unofficial Desktop Client
-Icon=me.tabinol.fastmail-desktop-client
-Keywords=calendar;contacts;mail
-Name=Fastmail Desktop Client
-Terminal=false
-Type=Application
