@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test specified\" && exit 0",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "release": "electron-builder"
@@ -14,7 +14,9 @@
     "appId": "me.tabinol.fastmail-desktop-client",
     "productName": "Fastmail Desktop Client",
     "icon": "icon.png",
-    "publish": ["github"],
+    "publish": [
+      "github"
+    ],
     "linux": {
       "target": "AppImage",
       "category": "X-Calendar;X-Compose;X-Contacts;X-Mail;Network"
