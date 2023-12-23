@@ -1,6 +1,6 @@
 import { BrowserWindow, Menu, MenuItem } from "electron";
 
-export class ContextMenu {
+export default class ContextMenu {
     menu = new Menu();
 
     win: BrowserWindow;
