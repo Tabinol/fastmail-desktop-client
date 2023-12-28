@@ -23,7 +23,6 @@ export default class MainWindow {
 
         // Click to external browser
         this.#win.webContents.setWindowOpenHandler(({ url }) => {
-            console.log(`url=${url}`);
 
             if (url.includes("fastmail.com")) {
                 return { action: 'allow' };
