@@ -29,10 +29,12 @@
   "bugs": {
     "url": "https://github.com/Tabinol/fastmail-desktop-client/issues"
   },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  },
   "homepage": "https://github.com/Tabinol/fastmail-desktop-client",
   "devDependencies": {
     "electron": "^28.1.0",
-    "electron-builder": "^24.9.1",
-    "electron-store": "^8.1.0"
+    "electron-builder": "^24.9.1"
   }
 }
