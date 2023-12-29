@@ -18,13 +18,33 @@
       "github"
     ],
     "linux": {
-      "target": "AppImage",
+      "target": [
+        "AppImage",
+        "flatpak",
+        "tar.gz"
+      ],
       "category": "X-Calendar;X-Compose;X-Contacts;X-Mail;Network"
+    },
+    "flatpak": {
+      "runtimeVersion": "23.08",
+      "baseVersion": "23.08",
+      "finishArgs": [
+        "--socket=wayland",
+        "--socket=x11",
+        "--share=ipc",
+        "--device=dri",
+        "--socket=pulseaudio",
+        "--filesystem=home",
+        "--share=network",
+        "--talk-name=org.freedesktop.Notifications",
+        "--socket=session-bus",
+        "--socket=system-bus"
+      ]
     },
     "files": "!src/**"
   },
   "repository": "https://github.com/Tabinol/fastmail-desktop-client.git",
-  "author": "Tabinol",
+  "author": "Tabinol <tabinol@tabinol.me> (https://www.tabinol.me)",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Tabinol/fastmail-desktop-client/issues"
