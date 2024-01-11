@@ -39,7 +39,7 @@
       "!md/**",
       "!babel.config.json",
       "!jest.config.json",
-      "!renovate.json",
+      "!renovate.json"
     ]
   },
   "repository": "https://github.com/Tabinol/fastmail-desktop-client.git",
