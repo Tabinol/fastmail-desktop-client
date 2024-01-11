@@ -8,17 +8,18 @@ const WIN_BOUNDS_KEY = "winBounds";
 export default class MainWindow {
 
     private store = new Store();
-
-    private win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        show: false,
-        webPreferences: {
-            spellcheck: true
-        }
-    });
+    private win!: BrowserWindow;
 
     create() {
+        this.win = new BrowserWindow({
+            width: 800,
+            height: 600,
+            show: false,
+            webPreferences: {
+                spellcheck: true
+            }
+        });
+
         this.setBounds();
 
         // Click to external browser

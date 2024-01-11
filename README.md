@@ -1,6 +1,8 @@
 # fastmail-desktop-client
 Unofficial desktop client for Fastmail
 
+![screenshot](md/fastmail-desktop-client.png)
+
 ## Note
 This application is not verified by, affiliated with, or supported by FastMail.
 
