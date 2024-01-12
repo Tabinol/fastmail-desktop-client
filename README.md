@@ -3,6 +3,8 @@ Unofficial desktop client for Fastmail
 
 ![screenshot](md/fastmail-desktop-client.png)
 
+[![<ORG_NAME>](https://circleci.com/gh/Tabinol/fastmail-desktop-client.svg?style=svg)](https://app.circleci.com/pipelines/github/Tabinol/fastmail-desktop-client?branch=main)
+
 ## Note
 This application is not verified by, affiliated with, or supported by FastMail.
 
