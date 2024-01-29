@@ -3,15 +3,9 @@ import { BrowserWindow, ContextMenuParams, Menu, MenuItem } from "electron";
 export default class ContextMenu {
     private menu = new Menu();
 
-    private win: BrowserWindow;
-    private params: ContextMenuParams;
+    constructor(private win: BrowserWindow, private params: ContextMenuParams) { }
 
-    constructor(win: BrowserWindow, params: ContextMenuParams) {
-        this.win = win;
-        this.params = params;
-    }
-
-    create() {
+    create(): ContextMenu {
         // Add each spelling suggestion
         for (const suggestion of this.params.dictionarySuggestions) {
             this.menu.append(new MenuItem({
@@ -31,5 +25,7 @@ export default class ContextMenu {
         }
 
         this.menu.popup();
+
+        return this;
     }
 }
