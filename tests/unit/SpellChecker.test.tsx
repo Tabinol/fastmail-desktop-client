@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { MenuItemConstructorOptions } from 'electron';
-import SpellChecker from '../../app/SpellChecker';
+import SpellCheckerMenu from '../../app/SpellCheckerMenu';
 
 const mockSession = jest.fn().mockImplementation(() => {
     return {
@@ -9,10 +9,24 @@ const mockSession = jest.fn().mockImplementation(() => {
     };
 });
 
-const spellChecker = new SpellChecker(new mockSession());
+const mockWebContents = jest.fn().mockImplementation(() => {
+    return {
+        session: new mockSession()
+    };
+});
+
+const mockBrowserWindow = jest.fn().mockImplementation(() => {
+    return {
+        webContents: new mockWebContents()
+    };
+});
+
+const mockMainMenu = jest.fn().mockImplementation();
+
+const spellCheckerMenu = new SpellCheckerMenu(new mockBrowserWindow(), new mockMainMenu());
 
 describe('getLanguageSubmenu', () => {
-    const languageSubmenu = spellChecker.getLanguageSubmenu().submenu as MenuItemConstructorOptions[];
+    const languageSubmenu = spellCheckerMenu.menuItemConstructorOptions()[1].submenu as MenuItemConstructorOptions[];
 
     it('submenu count 3 languages', () => {
         expect(languageSubmenu.length).toEqual(3);
