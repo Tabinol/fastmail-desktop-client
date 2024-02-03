@@ -1,11 +1,14 @@
-import { Menu, MenuItemConstructorOptions } from "electron";
+import { BrowserWindow, Menu, MenuItemConstructorOptions } from "electron";
 import openAboutWindow from "electron-about-window";
 import path from 'path';
+import SpellCheckerMenu from "./SpellCheckerMenu";
 import { PROJECT_ROOT_DIR, RESOURCES_PATH } from "./utils";
 
 export default class MainMenu {
 
     private menu!: Menu;
+
+    constructor(private win: BrowserWindow) { }
 
     create(): MainMenu {
         const template: MenuItemConstructorOptions[] = [
@@ -13,6 +16,10 @@ export default class MainMenu {
             { role: 'editMenu' },
             { role: 'viewMenu' },
             { role: 'windowMenu' },
+            {
+                label: 'Spell Checker',
+                submenu: new SpellCheckerMenu(this.win, this).menuItemConstructorOptions()
+            },
             {
                 role: 'help',
                 submenu: [
@@ -34,5 +41,9 @@ export default class MainMenu {
         Menu.setApplicationMenu(this.menu);
 
         return this;
+    }
+
+    refresh(): MainMenu {
+        return this.create();
     }
 }

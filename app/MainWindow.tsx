@@ -37,12 +37,8 @@ export default class MainWindow {
 
         this.win.once('ready-to-show', this.win.show);
 
-        this.win.webContents.on('context-menu', (event, params) => {
-            new ContextMenu(this.win, params).create();
-
-        });
-
-        new MainMenu().create();
+        const mainMenu = new MainMenu(this.win).create();
+        new ContextMenu(this.win, mainMenu).create();
 
         this.win.loadURL(APP_URL);
 
