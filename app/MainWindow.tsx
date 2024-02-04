@@ -1,4 +1,4 @@
-import { BrowserWindow, shell } from "electron";
+import { BrowserWindow, MessageBoxSyncOptions, dialog, shell } from "electron";
 import Store from "electron-store";
 import ContextMenu from "./ContextMenu";
 import MainMenu from "./MainMenu";
@@ -12,7 +12,7 @@ export default class MainWindow {
     private win?: BrowserWindow;
 
     create(): MainWindow {
-        this.win = new BrowserWindow({
+        const win = this.win = new BrowserWindow({
             width: 800,
             height: 600,
             show: false,
@@ -25,7 +25,7 @@ export default class MainWindow {
         this.setBounds();
 
         // Click to external browser
-        this.win.webContents.setWindowOpenHandler(({ url }) => {
+        win.webContents.setWindowOpenHandler(({ url }) => {
 
             if (url.includes("fastmail.com")) {
                 return { action: 'allow' };
@@ -35,15 +35,31 @@ export default class MainWindow {
             return { action: 'deny' };
         });
 
-        this.win.once('ready-to-show', this.win.show);
+        win.once('ready-to-show', win.show);
 
-        const mainMenu = new MainMenu(this.win).create();
-        new ContextMenu(this.win, mainMenu).create();
+        const mainMenu = new MainMenu(win).create();
+        new ContextMenu(win, mainMenu).create();
 
-        this.win.loadURL(APP_URL);
+        win.loadURL(APP_URL);
 
-        this.win.on('close', () => {
+        win.on('close', () => {
             this.saveBounds();
+        });
+
+        win.webContents.on('will-prevent-unload', (event) => {
+            const options: MessageBoxSyncOptions = {
+                title: 'Fastmail: Changes not saved',
+                type: 'question',
+                buttons: ['Cancel', 'Leave'],
+                message: 'Do you want to leave Fastmail?',
+                detail: 'Changes you made may not be saved.',
+            };
+
+            const response = dialog.showMessageBoxSync(win, options);
+
+            if (response === 1) {
+                event.preventDefault();
+            }
         });
 
         return this;
