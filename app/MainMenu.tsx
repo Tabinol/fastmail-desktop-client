@@ -6,8 +6,6 @@ import { PROJECT_ROOT_DIR, RESOURCES_PATH } from "./utils";
 
 export default class MainMenu {
 
-    private menu!: Menu;
-
     constructor(private win: BrowserWindow) { }
 
     create(): MainMenu {
@@ -37,8 +35,8 @@ export default class MainMenu {
             }
         ];
 
-        this.menu = Menu.buildFromTemplate(template);
-        Menu.setApplicationMenu(this.menu);
+        const menu = Menu.buildFromTemplate(template);
+        Menu.setApplicationMenu(menu);
 
         return this;
     }

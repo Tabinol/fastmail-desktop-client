@@ -12,7 +12,7 @@ export default class SpellCheckerMenu {
     menuItemConstructorOptions(): MenuItemConstructorOptions[] {
 
         return [
-            ...typeof this.params !== 'undefined' ? [
+            ...this.params ? [
                 ...this.generateDictionarySuggestions(),
                 ...this.generateMisspelledWords(),
                 { type: 'separator' } as MenuItemConstructorOptions
