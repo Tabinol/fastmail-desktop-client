@@ -9,7 +9,7 @@ const WIN_BOUNDS_KEY = "winBounds";
 export default class MainWindow {
 
     private store = new Store();
-    private win!: BrowserWindow;
+    private win?: BrowserWindow;
 
     create(): MainWindow {
         this.win = new BrowserWindow({
@@ -49,15 +49,29 @@ export default class MainWindow {
         return this;
     }
 
+    restoreAndFocus() {
+        if (this.win) {
+            if (this.win.isMinimized()) {
+                this.win.restore();
+            }
+
+            this.win.focus();
+        }
+    }
+
     private setBounds() {
-        const bounds = this.store.get(WIN_BOUNDS_KEY);
-        if (bounds != undefined) {
-            this.win.setBounds(bounds);
+        if (this.win) {
+            const bounds = this.store.get(WIN_BOUNDS_KEY);
+            if (bounds != undefined) {
+                this.win.setBounds(bounds);
+            }
         }
     }
 
     private saveBounds() {
-        const bounds = this.win.getBounds();
-        this.store.set(WIN_BOUNDS_KEY, bounds);
+        if (this.win) {
+            const bounds = this.win.getBounds();
+            this.store.set(WIN_BOUNDS_KEY, bounds);
+        }
     }
 }
