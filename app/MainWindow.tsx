@@ -1,6 +1,7 @@
 import { BrowserWindow, shell } from "electron";
 import Store from "electron-store";
 import ContextMenu from "./ContextMenu";
+import MainMenu from "./MainMenu";
 
 const APP_URL = "https://app.fastmail.com/";
 const WIN_BOUNDS_KEY = "winBounds";
@@ -10,11 +11,12 @@ export default class MainWindow {
     private store = new Store();
     private win!: BrowserWindow;
 
-    create() {
+    create(): MainWindow {
         this.win = new BrowserWindow({
             width: 800,
             height: 600,
             show: false,
+            autoHideMenuBar: true,
             webPreferences: {
                 spellcheck: true
             }
@@ -35,16 +37,16 @@ export default class MainWindow {
 
         this.win.once('ready-to-show', this.win.show);
 
-        this.win.webContents.on('context-menu', (event, params) => {
-            new ContextMenu(this.win, params).create();
-
-        });
+        const mainMenu = new MainMenu(this.win).create();
+        new ContextMenu(this.win, mainMenu).create();
 
         this.win.loadURL(APP_URL);
 
         this.win.on('close', () => {
             this.saveBounds();
         });
+
+        return this;
     }
 
     private setBounds() {

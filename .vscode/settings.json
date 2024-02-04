@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://json.schemastore.org/circleciconfig.json": "file:///home/misha/projects/fastmail-desktop-client/.circleci/config.yml"
-    }
-}
