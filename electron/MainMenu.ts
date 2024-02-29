@@ -1,8 +1,7 @@
 import { BrowserWindow, Menu, MenuItemConstructorOptions } from "electron";
 import openAboutWindow from "electron-about-window";
-import path from 'path';
 import SpellCheckerMenu from "./SpellCheckerMenu";
-import { PROJECT_ROOT_DIR, RESOURCES_PATH } from "./utils";
+import { FASTMAIL_SVG, PROJECT_ROOT_DIR } from "./common";
 
 export default class MainMenu {
 
@@ -25,7 +24,7 @@ export default class MainMenu {
                         label: 'about...',
                         click: () => {
                             openAboutWindow({
-                                icon_path: path.join(RESOURCES_PATH, 'icon.png'),
+                                icon_path: FASTMAIL_SVG,
                                 package_json_dir: PROJECT_ROOT_DIR,
                                 product_name: 'Fastmail Desktop Client'
                             });

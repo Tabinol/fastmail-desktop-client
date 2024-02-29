@@ -129,9 +129,11 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Compiled JavaScript
-/app/**/*.js
-/app/**/*.js.map
+# electron
+dist-ssr
+dist-electron
+release
+*.local
 
 # flatpak
 /flatpak/build/

@@ -1,7 +1,9 @@
 import { BrowserWindow, MessageBoxSyncOptions, dialog, shell } from "electron";
 import Store from "electron-store";
+import path from 'node:path';
 import ContextMenu from "./ContextMenu";
 import MainMenu from "./MainMenu";
+import { FASTMAIL_SVG } from "./common";
 
 const APP_URL = "https://app.fastmail.com/";
 const WIN_BOUNDS_KEY = "winBounds";
@@ -13,11 +15,12 @@ export default class MainWindow {
 
     create(): MainWindow {
         const win = this.win = new BrowserWindow({
+            icon: FASTMAIL_SVG,
             width: 800,
             height: 600,
             show: false,
-            autoHideMenuBar: true,
             webPreferences: {
+                preload: path.join(__dirname, 'preload.js'),
                 spellcheck: true
             }
         });

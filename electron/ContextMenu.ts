@@ -8,7 +8,7 @@ export default class ContextMenu {
 
     create(): ContextMenu {
 
-        this.win.webContents.on('context-menu', (event, params) => {
+        this.win.webContents.on('context-menu', (_event, params) => {
             const menu = Menu.buildFromTemplate(this.buildMenu(params));
             menu.popup();
         });

@@ -1,6 +1,6 @@
 import { describe, expect, it } from '@jest/globals';
 import { MenuItemConstructorOptions } from 'electron';
-import SpellCheckerMenu from '../../app/SpellCheckerMenu';
+import SpellCheckerMenu from '../../electron/SpellCheckerMenu';
 
 const mockSession = jest.fn().mockImplementation(() => {
     return {
