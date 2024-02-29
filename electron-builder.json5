@@ -12,10 +12,8 @@
   },
   "files": [
     "dist",
-    "dist-electron"
-  ],
-  "extraResources": [
-    "./resources/**"
+    "dist-electron",
+    "!dist-electron/**/*.js.map",
   ],
   "mac": {
     "target": [

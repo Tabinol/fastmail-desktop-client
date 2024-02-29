@@ -8,3 +8,6 @@ flatpak-node-generator yarn ../yarn.lock
 flatpak-builder build me.tabinol.fastmail-desktop-client.yml --repo=repo --force-clean
 mkdir -p ../release
 flatpak build-bundle repo ../release/fastmail-desktop-client-${PACKAGE_VERSION}.flatpak me.tabinol.fastmail-desktop-client
+
+# Workaround Bug with Vite: Error: ELOOP: too many symbolic links encountered, stat '...'
+rm -rf ./build ./.flatpak-builder ./repo
