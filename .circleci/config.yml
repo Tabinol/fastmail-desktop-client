@@ -41,7 +41,7 @@ jobs:
           name: Copy Artifacts
           command: |
             mkdir -p artifacts
-            cp dist/*.AppImage dist/*.tar.gz artifacts/
+            cp release/*.AppImage release/*.tar.gz artifacts/
       - run:
           name: Generate Flatpak Artifacts
           command: |
@@ -51,7 +51,7 @@ jobs:
           name: Copy Flatpak Artifacts
           command: |
             mkdir -p artifacts
-            cp dist/*.flatpak artifacts/
+            cp release/*.flatpak artifacts/
       - store_artifacts:
           filters:
             branches:

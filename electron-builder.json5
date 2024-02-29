@@ -8,7 +8,7 @@
   "productName": "fastmail-desktop-client",
   "icon": "icon.png",
   "directories": {
-    "output": "release/${version}"
+    "output": "release"
   },
   "files": [
     "dist",
