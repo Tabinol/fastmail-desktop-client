@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: yarn install
+          command: yarn install && yarn postinstall
       - run:
           name: Generate Builds
           command: yarn build
@@ -24,7 +24,7 @@ jobs:
           command: npx jest --ci --runInBand --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/
-            JEST_JUNIT_ADD_FILE_ATTRIBUTE: "true"
+            JEST_JUNIT_ADD_FILE_ATTRIBUTE: 'true'
       - store_test_results:
           path: ./reports/
   dist:
@@ -33,15 +33,15 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: yarn install
+          command: yarn install && yarn postinstall
       - run:
           name: Generate Artifacts
-          command: yarn dist
+          command: yarn build:linux
       - run:
           name: Copy Artifacts
           command: |
             mkdir -p artifacts
-            cp release/*.AppImage release/*.tar.gz artifacts/
+            cp dist/*.AppImage dist/*.tar.gz artifacts/
       - run:
           name: Generate Flatpak Artifacts
           command: |
@@ -52,7 +52,7 @@ jobs:
           name: Copy Flatpak Artifacts
           command: |
             mkdir -p artifacts
-            cp release/*.flatpak artifacts/
+            cp dist/*.flatpak artifacts/
       - store_artifacts:
           filters:
             branches:

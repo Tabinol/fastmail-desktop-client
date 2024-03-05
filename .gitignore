@@ -130,16 +130,15 @@ dist
 .pnp.*
 
 # electron
+dist
 dist-ssr
 dist-electron
-release
 *.local
 
 # flatpak
 /flatpak/build/
 /flatpak/repo/
 /flatpak/.flatpak-builder
-/flatpak/generated-sources.json
 
 # jest-junit
 /reports/

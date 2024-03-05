@@ -2,57 +2,65 @@
   "name": "fastmail-desktop-client",
   "version": "1.0.3",
   "description": "Unofficial desktop client for Fastmail",
-  "main": "dist-electron/main.js",
+  "main": "./out/main/index.js",
   "scripts": {
-    "dev": "vite",
-    "test": "tsc && vite build && jest",
-    "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "dist": "tsc && vite build && electron-builder --publish never",
-    "flatpak-install": "./flatpak/flatpak-build.sh",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
+    "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
+    "typecheck": "yarn run typecheck:node && yarn run typecheck:web",
+    "start": "electron-vite preview",
+    "dev": "electron-vite dev",
+    "build": "yarn run typecheck && electron-vite build",
+    "postinstall": "electron-builder install-app-deps",
+    "test": "yarn run build && jest",
+    "build:unpack": "yarn run build && electron-builder --dir",
+    "build:win": "yarn run build && electron-builder --win",
+    "build:mac": "electron-vite build && electron-builder --mac",
+    "build:linux": "electron-vite build && electron-builder --linux",
+    "flatpak-install": "yarn run build:unpack && ./flatpak/flatpak-install.sh",
     "flatpak-start": "flatpak run me.tabinol.fastmail-desktop-client",
-    "flatpak-dist": "./flatpak/flatpak-dist.sh"
+    "flatpak-build": "yarn run build:unpack && ./flatpak/flatpak-build.sh"
   },
   "repository": "https://github.com/Tabinol/fastmail-desktop-client.git",
   "author": "Tabinol <tabinol@tabinol.me> (https://www.tabinol.me)",
   "license": "Apache-2.0",
-  "debug": {
-    "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:7777/"
-    }
-  },
   "bugs": {
     "url": "https://github.com/Tabinol/fastmail-desktop-client/issues"
   },
   "homepage": "https://github.com/Tabinol/fastmail-desktop-client",
   "dependencies": {
+    "@electron-toolkit/preload": "^3.0.0",
+    "@electron-toolkit/utils": "^3.0.0",
     "electron-about-window": "^1.15.2",
-    "electron-store": "^8.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "electron-store": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-typescript": "^7.23.3",
+    "@electron-toolkit/eslint-config-prettier": "^2.0.0",
+    "@electron-toolkit/eslint-config-ts": "^1.0.1",
+    "@electron-toolkit/tsconfig": "^1.0.1",
     "@jest/globals": "^29.7.0",
     "@types/jest": "^29.5.11",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
-    "@vitejs/plugin-react": "^4.0.4",
+    "@types/node": "^18.19.9",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
     "babel-jest": "^29.7.0",
-    "electron": "^v28.1.4",
+    "electron": "^28.2.0",
     "electron-builder": "^24.9.1",
+    "electron-vite": "^2.0.0",
     "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
     "jest": "^29.7.0",
     "jest-junit": "^16.0.0",
+    "prettier": "^3.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3",
-    "vite": "^4.4.9",
-    "vite-plugin-electron": "^0.14.0",
-    "vite-plugin-electron-renderer": "^0.14.5"
+    "vite": "^5.0.12"
   }
 }
