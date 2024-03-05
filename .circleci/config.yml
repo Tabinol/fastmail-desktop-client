@@ -46,7 +46,7 @@ jobs:
           name: Generate Flatpak Artifacts
           command: |
             cd flatpak
-            ./flatpak-dist.sh
+            ./flatpak-build.sh
           no_output_timeout: 60m
       - run:
           name: Copy Flatpak Artifacts
