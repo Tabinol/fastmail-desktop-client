@@ -129,15 +129,16 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Compiled JavaScript
-/app/**/*.js
-/app/**/*.js.map
+# electron
+dist
+dist-ssr
+dist-electron
+*.local
 
 # flatpak
 /flatpak/build/
 /flatpak/repo/
 /flatpak/.flatpak-builder
-/flatpak/generated-sources.json
 
 # jest-junit
 /reports/

@@ -1,5 +1,3 @@
 {
-    "testPathIgnorePatterns": [
-        "/flatpak/"
-    ]
+  "testPathIgnorePatterns": ["/flatpak/"]
 }
