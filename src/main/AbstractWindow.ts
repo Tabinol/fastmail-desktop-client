@@ -1,5 +1,5 @@
 import { is } from '@electron-toolkit/utils';
-import { BrowserWindow } from 'electron';
+import { BrowserWindow, shell } from 'electron';
 import { createFileRoute, createURLRoute } from 'electron-router-dom';
 import path from 'path';
 
@@ -44,6 +44,12 @@ export default abstract class AbstractWindow {
     } else {
       win.loadFile(...createFileRoute(path.join(__dirname, '../renderer/index.html'), this.id));
     }
+
+    // Click to external browser
+    win.webContents.setWindowOpenHandler(({ url }) => {
+      shell.openExternal(url);
+      return { action: 'deny' };
+    });
 
     win.once('ready-to-show', () => {
       win.show();

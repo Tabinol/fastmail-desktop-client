@@ -9,18 +9,25 @@ interface RecordType {
 }
 
 function SpellCheck(): JSX.Element {
-  const [dataSource, setDataSource] = useState([] as RecordType[]);
+  const [spellCheckerEnable, setSpellCheckerEnable] = useState<boolean>(false);
+  const [dataSource, setDataSource] = useState<RecordType[]>([]);
+  const [targetKeys, setTargetKeys] = useState<string[]>([]);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   useEffect(() => {
-    window.api.availableSpellCheckerLanguages.then((o) =>
-      setDataSource(
-        Object.entries(o).map((e) => ({
-          key: e[0],
-          title: e[1],
-          description: e[0]
-        }))
-      )
-    );
+    window.api.getSpellCheck.then((o) => {
+      setSpellCheckerEnable(o.enabled);
+      if (o.availableLanguages) {
+        setDataSource(
+          Object.entries(o.availableLanguages).map((e) => ({
+            key: e[0],
+            title: e[1],
+            description: e[0]
+          }))
+        );
+      }
+      setTargetKeys(o.languages);
+    });
   }, []);
 
   return (
@@ -29,7 +36,15 @@ function SpellCheck(): JSX.Element {
       <Switch
         checkedChildren={<CheckOutlined />}
         unCheckedChildren={<CloseOutlined />}
-        defaultChecked
+        value={spellCheckerEnable}
+        onChange={(v) => {
+          setSpellCheckerEnable(v);
+          window.api.setSpellCheck({
+            enabled: v,
+            availableLanguages: undefined,
+            languages: targetKeys
+          });
+        }}
       />
       <ConfigProvider
         theme={{
@@ -42,8 +57,20 @@ function SpellCheck(): JSX.Element {
         }}
       >
         <Transfer
+          disabled={!spellCheckerEnable}
           dataSource={dataSource}
           titles={['List', 'Active']}
+          targetKeys={targetKeys}
+          selectedKeys={selectedKeys}
+          onChange={(ks) => {
+            setTargetKeys(ks);
+            window.api.setSpellCheck({
+              enabled: spellCheckerEnable,
+              availableLanguages: undefined,
+              languages: ks
+            });
+          }}
+          onSelectChange={(sourceKs, targetKs) => setSelectedKeys([...sourceKs, ...targetKs])}
           render={(item) => item.title}
           oneWay
           showSearch

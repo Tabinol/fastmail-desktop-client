@@ -10,7 +10,7 @@ import { THEME_DARK_VALUE, THEME_DEFAULT_VALUE } from './settings/Appearance';
 import Settings from './settings/Settings';
 
 function Main(): JSX.Element {
-  const [localTheme, setLocalTheme] = useState(THEME_DEFAULT_VALUE);
+  const [localTheme, setLocalTheme] = useState<string>(THEME_DEFAULT_VALUE);
 
   const setBg =
     localTheme === THEME_DARK_VALUE ? <style>{'html,body {background: #000;}'}</style> : <></>;

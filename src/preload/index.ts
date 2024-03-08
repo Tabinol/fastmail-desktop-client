@@ -3,15 +3,14 @@ import { IpcRenderer, contextBridge, ipcRenderer } from 'electron/renderer';
 
 // Custom APIs for renderer
 const api = {
-  appName: ipcRenderer.invoke('appName') as Promise<string>,
-  appVersion: ipcRenderer.invoke('appVersion') as Promise<string>,
-  availableSpellCheckerLanguages: ipcRenderer.invoke('availableSpellCheckerLanguages') as Promise<{
-    [key: string]: string;
-  }>,
+  getAppInfo: ipcRenderer.invoke('getAppInfo') as Promise<unknown>,
   getTheme: ipcRenderer.invoke('getTheme') as Promise<string>,
   setTheme: (theme: string): void => ipcRenderer.send('setTheme', theme),
   setThemeReply: (callback: (theme: string) => void): IpcRenderer =>
-    ipcRenderer.on('setThemeReply', (_event, theme) => callback(theme))
+    ipcRenderer.on('setThemeReply', (_event, theme) => callback(theme)),
+  getSpellCheck: ipcRenderer.invoke('getSpellCheck') as Promise<unknown>,
+  setSpellCheck: (spellCheckInfo: unknown): void =>
+    ipcRenderer.send('setSpellCheck', spellCheckInfo)
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

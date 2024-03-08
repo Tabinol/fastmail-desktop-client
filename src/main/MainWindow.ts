@@ -19,8 +19,7 @@ export default class MainWindow {
       height: 600,
       show: false,
       webPreferences: {
-        sandbox: true,
-        spellcheck: true
+        sandbox: true
       }
     }));
 

@@ -14,7 +14,8 @@ export default class SpellCheckerMenu {
     return [
       ...this.generateDictionarySuggestions(),
       ...this.generateMisspelledWords(),
-      { type: 'separator' } as MenuItemConstructorOptions
+      { type: 'separator' } as MenuItemConstructorOptions,
+      { role: 'toggleSpellChecker' }
     ];
   }
 

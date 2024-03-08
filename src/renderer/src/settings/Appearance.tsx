@@ -6,7 +6,7 @@ const THEME_DEFAULT_VALUE = 'default';
 const THEME_DARK_VALUE = 'dark';
 
 function Appearance(): JSX.Element {
-  const [localTheme, setLocalTheme] = useState(THEME_DEFAULT_VALUE);
+  const [localTheme, setLocalTheme] = useState<string>(THEME_DEFAULT_VALUE);
 
   const options: SelectProps['options'] = [
     {
