@@ -1,0 +1,80 @@
+import { Checkbox, Divider } from 'antd';
+import { CheckboxOptionType, CheckboxValueType } from 'antd/es/checkbox/Group';
+import { useEffect, useState } from 'react';
+
+import locales from './components/locales';
+
+type Persistance = {
+  spell_check_state: {
+    enable: boolean;
+    languages: string[];
+  };
+  // Not used keys/values are not declared here.
+};
+
+function Settings(): JSX.Element {
+  const [spellCheckerEnable, setSpellCheckerEnable] = useState(false);
+  const [languages, setLanguages] = useState([] as string[]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  async function updatePersistance(): Promise<void> {
+    // TODO invoke Electron --- let str = (await invoke('get_persistance_json_string')) as string;
+    const str =
+      '{"spell_check_state":{"enable":true,"languages:"fr_FR"},"main_window_state":false}';
+
+    const json = JSON.parse(str) as Persistance;
+
+    const spellCheckState = json.spell_check_state;
+
+    setSpellCheckerEnable(spellCheckState.enable);
+    setLanguages(spellCheckState.languages);
+  }
+
+  async function setBKSpellLanguages(): Promise<void> {
+    // TODO invoke Electron --- await invoke('set_spell_languages', { enable: spellCheckerEnable, languages: languages });
+  }
+
+  function createLangOptions(): CheckboxOptionType<CheckboxValueType>[] {
+    // TODO Send available languages from Electron (Chromium)
+    return Object.keys(locales).map((key) => ({ label: locales[key].name, value: key }));
+  }
+
+  useEffect(() => {
+    updatePersistance().then(() => setIsLoaded(true));
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      setBKSpellLanguages();
+    }
+  }, [spellCheckerEnable, languages]);
+
+  return (
+    <Divider style={{ width: '450px', height: '500px' }}>
+      <Divider style={{ height: '10%' }}>
+        <legend>Settings</legend>
+      </Divider>
+      <Divider dashed={true} style={{ height: '90%' }}>
+        <legend style={{ height: '10%' }}>Spell Checker</legend>
+        <Divider style={{ height: '5%' }}>
+          <Checkbox
+            checked={spellCheckerEnable}
+            onChange={(e) => setSpellCheckerEnable(e.target.checked)}
+          />
+          Enabled
+        </Divider>
+        <Divider style={{ height: '5%' }}>Add language:</Divider>
+        <Divider style={{ height: '75%' }}>
+          <Checkbox.Group
+            options={createLangOptions()}
+            disabled={!spellCheckerEnable}
+            defaultValue={languages}
+            onChange={(checkedValues) => setLanguages(checkedValues as string[])}
+          />
+        </Divider>
+      </Divider>
+    </Divider>
+  );
+}
+
+export default Settings;

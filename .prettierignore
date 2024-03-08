@@ -3,4 +3,3 @@ dist
 flatpak/.flatpak-builder
 flatpak/repo
 flatpak/build
-flatpak/generated-sources.json

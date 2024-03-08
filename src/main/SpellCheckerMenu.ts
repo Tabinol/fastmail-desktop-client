@@ -1,31 +1,20 @@
 import { BrowserWindow, ContextMenuParams, MenuItemConstructorOptions, Session } from 'electron';
-import MainMenu from './MainMenu';
 
 export default class SpellCheckerMenu {
   private session: Session;
 
   constructor(
     private win: BrowserWindow,
-    private mainMenu: MainMenu,
-    private params?: ContextMenuParams
+    private params: ContextMenuParams
   ) {
     this.session = this.win.webContents.session;
   }
 
   menuItemConstructorOptions(): MenuItemConstructorOptions[] {
     return [
-      ...(this.params
-        ? [
-            ...this.generateDictionarySuggestions(),
-            ...this.generateMisspelledWords(),
-            { type: 'separator' } as MenuItemConstructorOptions
-          ]
-        : []),
-      { role: 'toggleSpellChecker' },
-      {
-        label: 'Active Languages',
-        submenu: this.generateActiveLanguageMenu()
-      }
+      ...this.generateDictionarySuggestions(),
+      ...this.generateMisspelledWords(),
+      { type: 'separator' } as MenuItemConstructorOptions
     ];
   }
 
@@ -47,24 +36,5 @@ export default class SpellCheckerMenu {
           }
         ]
       : [];
-  }
-
-  private generateActiveLanguageMenu(): MenuItemConstructorOptions[] {
-    const result: MenuItemConstructorOptions[] = [];
-    const spellCheckerLanguages = this.session.getSpellCheckerLanguages();
-
-    this.session.availableSpellCheckerLanguages.forEach((lang) => {
-      result.push({
-        label: lang,
-        type: 'checkbox',
-        checked: spellCheckerLanguages.includes(lang),
-        click: () => {
-          this.session.setSpellCheckerLanguages(spellCheckerLanguages.concat(lang));
-          this.mainMenu.refresh();
-        }
-      });
-    });
-
-    return result;
   }
 }

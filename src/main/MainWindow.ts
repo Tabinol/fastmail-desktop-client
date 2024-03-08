@@ -1,28 +1,30 @@
-import { BrowserWindow, MessageBoxSyncOptions, dialog, shell } from 'electron';
-import Store from 'electron-store';
-import path from 'node:path';
+import { BrowserWindow, MessageBoxSyncOptions, Session, dialog, shell } from 'electron';
+
 import ContextMenu from './ContextMenu';
+import Ipc from './Ipc';
+import LocalStore from './LocalStore';
 import MainMenu from './MainMenu';
 import { FASTMAIL_SVG } from './common';
 
 const APP_URL = 'https://app.fastmail.com/';
-const WIN_BOUNDS_KEY = 'winBounds';
 
 export default class MainWindow {
-  private store = new Store();
+  private localStore = new LocalStore();
   private win?: BrowserWindow;
 
   create(): this {
     const win = (this.win = new BrowserWindow({
-      icon: FASTMAIL_SVG,
+      ...(process.platform === 'linux' ? { icon: FASTMAIL_SVG } : {}),
       width: 800,
       height: 600,
       show: false,
       webPreferences: {
-        preload: path.join(__dirname, '../preload/index.js'),
+        sandbox: true,
         spellcheck: true
       }
     }));
+
+    new Ipc(this.localStore, win.webContents.session).create();
 
     this.setBounds();
 
@@ -38,8 +40,8 @@ export default class MainWindow {
 
     win.once('ready-to-show', win.show);
 
-    const mainMenu = new MainMenu(win).create();
-    new ContextMenu(win, mainMenu).create();
+    new MainMenu().create();
+    new ContextMenu(win).create();
 
     win.loadURL(APP_URL);
 
@@ -66,6 +68,10 @@ export default class MainWindow {
     return this;
   }
 
+  getSession(): Session {
+    return this.win!.webContents.session;
+  }
+
   restoreAndFocus(): void {
     if (this.win) {
       if (this.win.isMinimized()) {
@@ -78,8 +84,8 @@ export default class MainWindow {
 
   private setBounds(): void {
     if (this.win) {
-      const bounds = this.store.get(WIN_BOUNDS_KEY);
-      if (bounds != undefined) {
+      const bounds = this.localStore.loadBounds();
+      if (bounds) {
         this.win.setBounds(bounds);
       }
     }
@@ -88,7 +94,7 @@ export default class MainWindow {
   private saveBounds(): void {
     if (this.win) {
       const bounds = this.win.getBounds();
-      this.store.set(WIN_BOUNDS_KEY, bounds);
+      this.localStore.saveBounds(bounds);
     }
   }
 }

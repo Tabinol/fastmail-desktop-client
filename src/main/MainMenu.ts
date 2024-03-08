@@ -1,10 +1,11 @@
-import { BrowserWindow, Menu, MenuItemConstructorOptions } from 'electron';
-import openAboutWindow from 'electron-about-window';
-import SpellCheckerMenu from './SpellCheckerMenu';
-import { FASTMAIL_SVG, PROJECT_ROOT_DIR } from './common';
+import { Menu, MenuItemConstructorOptions } from 'electron';
+
+import AboutWindow from './AboutWindow';
+import SettingsWindow from './SettingsWindow';
 
 export default class MainMenu {
-  constructor(private win: BrowserWindow) {}
+  private settingsWindow = new SettingsWindow();
+  private aboutWindow = new AboutWindow();
 
   create(): this {
     const template: MenuItemConstructorOptions[] = [
@@ -13,23 +14,18 @@ export default class MainMenu {
       { role: 'viewMenu' },
       { role: 'windowMenu' },
       {
-        label: 'Spell Checker',
-        submenu: new SpellCheckerMenu(this.win, this).menuItemConstructorOptions()
-      },
-      {
         role: 'help',
         submenu: [
           {
-            label: 'about...',
+            label: 'Settings',
             click: (): void => {
-              // The TS definition is wrong: https://github.com/rhysd/electron-about-window/issues/86
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              openAboutWindow.default({
-                icon_path: FASTMAIL_SVG,
-                package_json_dir: PROJECT_ROOT_DIR,
-                product_name: 'Fastmail Desktop Client'
-              });
+              this.settingsWindow.createIfNotExist();
+            }
+          },
+          {
+            label: 'About...',
+            click: (): void => {
+              this.aboutWindow.createIfNotExist();
             }
           }
         ]

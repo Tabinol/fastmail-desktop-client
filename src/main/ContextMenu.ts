@@ -5,14 +5,11 @@ import {
   MenuItemConstructorOptions,
   clipboard
 } from 'electron';
-import MainMenu from './MainMenu';
+
 import SpellCheckerMenu from './SpellCheckerMenu';
 
 export default class ContextMenu {
-  constructor(
-    private win: BrowserWindow,
-    private mainMenu: MainMenu
-  ) {}
+  constructor(private win: BrowserWindow) {}
 
   create(): this {
     this.win.webContents.on('context-menu', (_event, params) => {
@@ -25,7 +22,7 @@ export default class ContextMenu {
 
   private buildMenu(params: ContextMenuParams): MenuItemConstructorOptions[] {
     return [
-      ...new SpellCheckerMenu(this.win, this.mainMenu, params).menuItemConstructorOptions(),
+      ...new SpellCheckerMenu(this.win, params).menuItemConstructorOptions(),
       { type: 'separator' },
       {
         role: 'cut',
