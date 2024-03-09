@@ -42,17 +42,17 @@ jobs:
           command: |
             mkdir -p artifacts
             cp dist/*.AppImage dist/*.tar.gz artifacts/
-      - run:
-          name: Generate Flatpak Artifacts
-          command: |
-            cd flatpak
-            ./flatpak-build.sh
-          no_output_timeout: 60m
-      - run:
-          name: Copy Flatpak Artifacts
-          command: |
-            mkdir -p artifacts
-            cp dist/*.flatpak artifacts/
+      # - run:
+      #     name: Generate Flatpak Artifacts
+      #     command: |
+      #       cd flatpak
+      #       ./flatpak-build.sh
+      #     no_output_timeout: 60m
+      # - run:
+      #     name: Copy Flatpak Artifacts
+      #     command: |
+      #       mkdir -p artifacts
+      #       cp dist/*.flatpak artifacts/
       - store_artifacts:
           filters:
             branches:

@@ -6,7 +6,7 @@ import LocalStore from './LocalStore';
 import MainMenu from './MainMenu';
 import { FASTMAIL_SVG } from './common';
 
-const APP_URL = 'https://app.fastmail.com/';
+const APP_URL = 'https://mail.proton.me/';
 
 export default class MainWindow {
   private localStore = new LocalStore();
@@ -29,7 +29,7 @@ export default class MainWindow {
 
     // Click to external browser
     win.webContents.setWindowOpenHandler(({ url }) => {
-      if (url.includes('fastmail.com')) {
+      if (url.includes('protonmail.com')) {
         return { action: 'allow' };
       }
 
@@ -50,10 +50,10 @@ export default class MainWindow {
 
     win.webContents.on('will-prevent-unload', (event) => {
       const options: MessageBoxSyncOptions = {
-        title: 'Fastmail: Changes not saved',
+        title: 'Protonmail: Changes not saved',
         type: 'question',
         buttons: ['Cancel', 'Leave'],
-        message: 'Do you want to leave Fastmail?',
+        message: 'Do you want to leave Protonmail?',
         detail: 'Changes you made may not be saved.'
       };
 

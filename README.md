@@ -1,10 +1,10 @@
-# fastmail-desktop-client
+# protonmail-desktop-client
 
-Unofficial desktop client for Fastmail
+Unofficial desktop client for Protonmail
 
-![screenshot](md/fastmail-desktop-client.png)
+![screenshot](md/protonmail-desktop-client.png)
 
-[![<ORG_NAME>](https://circleci.com/gh/Tabinol/fastmail-desktop-client.svg?style=svg)](https://app.circleci.com/pipelines/github/Tabinol/fastmail-desktop-client?branch=main)
+[![<ORG_NAME>](https://circleci.com/gh/Tabinol/protonmail-desktop-client.svg?style=svg)](https://app.circleci.com/pipelines/github/Tabinol/protonmail-desktop-client?branch=main)
 
 ## Note
 
@@ -12,7 +12,7 @@ This application is not verified by, affiliated with, or supported by FastMail.
 
 # Install
 
-For Now, only AppImage, Flatpak file and tar.gz are provided. You can download it here: https://github.com/Tabinol/fastmail-desktop-client/releases
+For Now, only AppImage, Flatpak file and tar.gz are provided. You can download it here: https://github.com/Tabinol/protonmail-desktop-client/releases
 
 ## AppImage
 

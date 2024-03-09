@@ -1,7 +1,7 @@
 {
-  "name": "fastmail-desktop-client",
+  "name": "protonmail-desktop-client",
   "version": "1.0.4",
-  "description": "Unofficial desktop client for Fastmail",
+  "description": "Unofficial desktop client for Proton Mail",
   "main": "./out/main/index.js",
   "scripts": {
     "format": "prettier --write .",
@@ -19,7 +19,7 @@
     "build:mac": "electron-vite build && electron-builder --mac",
     "build:linux": "electron-vite build && electron-builder --linux",
     "flatpak-install": "yarn run build:unpack && ./flatpak/flatpak-install.sh",
-    "flatpak-start": "flatpak run me.tabinol.fastmail-desktop-client",
+    "flatpak-start": "flatpak run me.tabinol.protonmail-desktop-client",
     "flatpak-build": "yarn run build:unpack && ./flatpak/flatpak-build.sh"
   },
   "repository": "https://github.com/Tabinol/fastmail-desktop-client.git",

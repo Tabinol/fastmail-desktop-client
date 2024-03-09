@@ -1,8 +1,8 @@
 #
 # @see https://www.electron.build/configuration/configuration
 #
-appId: me.tabinol.fastmail-desktop-client
-productName: fastmail-desktop-client
+appId: me.tabinol.protonmail-desktop-client
+productName: protonmail-desktop-client
 icon: icon.png
 directories:
   buildResources: build
@@ -41,7 +41,7 @@ linux:
   maintainer: tabinol.me
   category: X-Calendar;X-Compose;X-Contacts;X-Mail;Network
   desktop:
-    Name: Fastmail Desktop Client
+    Name: Protonmail Desktop Client
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false

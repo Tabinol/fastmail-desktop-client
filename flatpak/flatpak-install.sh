@@ -2,4 +2,4 @@
 
 cd "$(dirname "$0")"
 
-flatpak-builder build me.tabinol.fastmail-desktop-client.yml --install --force-clean --user
+flatpak-builder build me.tabinol.protonmail-desktop-client.yml --install --force-clean --user

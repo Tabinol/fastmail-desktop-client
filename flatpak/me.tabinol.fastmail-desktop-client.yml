@@ -1,10 +1,10 @@
-app-id: me.tabinol.fastmail-desktop-client
+app-id: me.tabinol.protonmail-desktop-client
 runtime: org.freedesktop.Platform
 runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '23.08'
-command: me.tabinol.fastmail-desktop-client
+command: me.tabinol.protonmail-desktop-client
 separate-locales: false
 finish-args:
   - --socket=wayland
@@ -20,16 +20,16 @@ finish-args:
 build-options:
   env:
 modules:
-  - name: fastmail-desktop-client
+  - name: protonmail-desktop-client
     buildsystem: simple
     build-options:
     build-commands:
       # Bundle app and dependencies
       - cp -a dist/linux*unpacked /app/main
       # Install app wrapper
-      - install -D --mode 0755 --target-directory /app/bin/ ../me.tabinol.fastmail-desktop-client
-      - install -D --mode 0644 --target-directory /app/share/applications/ ../me.tabinol.fastmail-desktop-client.desktop
-      - install -D --mode 0644 --target-directory /app/share/icons/hicolor/scalable/apps/ ../me.tabinol.fastmail-desktop-client.png
+      - install -D --mode 0755 --target-directory /app/bin/ ../me.tabinol.protonmail-desktop-client
+      - install -D --mode 0644 --target-directory /app/share/applications/ ../me.tabinol.protonmail-desktop-client.desktop
+      - install -D --mode 0644 --target-directory /app/share/icons/hicolor/scalable/apps/ ../me.tabinol.protonmail-desktop-client.png
     subdir: main
     sources:
       - type: dir
@@ -37,8 +37,8 @@ modules:
         dest: main/dist/linux-unpacked
       # Wrapper to launch the app
       - type: file
-        path: me.tabinol.fastmail-desktop-client
+        path: me.tabinol.protonmail-desktop-client
       - type: file
-        path: me.tabinol.fastmail-desktop-client.desktop
+        path: me.tabinol.protonmail-desktop-client.desktop
       - type: file
-        path: me.tabinol.fastmail-desktop-client.png
+        path: me.tabinol.protonmail-desktop-client.png
