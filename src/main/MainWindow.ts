@@ -6,7 +6,7 @@ import LocalStore from './LocalStore';
 import MainMenu from './MainMenu';
 import { FASTMAIL_SVG } from './common';
 
-const APP_URL = 'https://mail.proton.me/';
+const APP_URL = 'https://account.proton.me/';
 
 export default class MainWindow {
   private localStore = new LocalStore();
